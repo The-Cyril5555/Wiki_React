@@ -1,0 +1,29 @@
+.footer {
+    background-color: rgb(109, 109, 245);
+    color: white;
+    padding: 2rem;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .footer-section {
+    flex-basis: 50%;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .footer-section a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .footer-section a:hover {
+    text-decoration: underline;
+  }
+  
