@@ -1,0 +1,14 @@
+.accueil {
+    padding: 2rem;
+  }
+  
+  .accueil-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .accueil-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
