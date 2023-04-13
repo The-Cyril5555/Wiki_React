@@ -1,3 +1,5 @@
+import React from 'react';
+import { BrowserRouter, Routes ,Switch, Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
@@ -11,21 +13,13 @@ function App() {
     <div className="App">
       <Navbar />
       <header className="App-header">
-        <Accueil />
-        <Categorie />
-        <Connexion />
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Routes>
+          <Route path='/' element={<Accueil />}/>
+          <Route path='/categorie' element={<Categorie />}/>
+          <Route path='/connexion' element={<Connexion />}/>
+        </Routes>
+
+        
       </header>
       <Footer/>
     </div>
