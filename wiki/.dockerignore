@@ -1,0 +1,5 @@
+# Ignore les fichiers et les répertoires qui ne sont pas nécessaires pour la construction de l'image Docker
+node_modules/
+.env
+.git/
+*.md
