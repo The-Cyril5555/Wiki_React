@@ -1,0 +1,10 @@
+.main-404{
+	text-align: center;
+	margin: 0;
+	position: absolute;
+	top: 40%;
+	left: 0px;
+	right: 0px;
+	-ms-transform: translateY(-40%);
+	transform: translateY(-40%);
+}

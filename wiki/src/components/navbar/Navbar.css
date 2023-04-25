@@ -11,7 +11,7 @@
 
 .nav-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Ajouté */
   align-items: center;
   width: 100%;
   height: 80px;
@@ -23,7 +23,7 @@
   color: #fff;
   align-items: center;
   margin-left: 20px; 
-  /* margin-right: 1000px; */
+  margin-right: 1000px;
   cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
@@ -76,9 +76,12 @@
   display: none;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1500px) {
   .nav-logo {
-    left: -50px; /* décalage de 50 pixels vers la gauche */
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
   }
   .nav-menu {
     display: flex;

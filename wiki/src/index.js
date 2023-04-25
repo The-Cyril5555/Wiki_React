@@ -5,12 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import {AuthContextProvider} from './Tools/AuthContextProvider';
+import {ThemeProvider} from '@mui/material/styles';
+
+import Theme from './Model/Theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <AuthContextProvider>
-      <App />
+      <ThemeProvider theme={Theme}>
+        <App />
+      </ThemeProvider>
     </AuthContextProvider>
   </BrowserRouter>
 );

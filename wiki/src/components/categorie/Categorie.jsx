@@ -2,6 +2,8 @@ import React from 'react';
 import './Categorie.css';
 import {CapacitorHttp} from '@capacitor/core';
 import API from '../../Model/Api';
+import CategorieCard from '../categorieCard/CategorieCard';
+import {Container, Grid} from '@mui/material';
 
 
 export default class Categorie extends React.Component {
@@ -18,16 +20,18 @@ export default class Categorie extends React.Component {
   }
 
   render() {
-    console.log("cat",this.state.categories);
     return (
-      <div className="categorie">
-        <h1>Catégories</h1>
-        <ul className="categorie-list">
-          {this.state.categories.map((category) => (
-            <li key={category.id}>{category.nom}</li>
-          ))}
-        </ul>
-      </div>
+       <>
+          <Container sx={{py: 8}} maxWidth="md">
+             <Grid container spacing={4}>
+                {this.state.categories.map((categorie) => (
+                   <Grid item key={categorie.title} xs={12} sm={6} md={4}>
+                      <CategorieCard categorie={categorie} />
+                   </Grid>
+                ))}
+             </Grid>
+          </Container>
+       </>
     );
-  };
+ };
 }
