@@ -86,7 +86,7 @@ router.get('/auteur/:id', function(req, res) {
 });
 
 
-router.get('/category/:id', function(req, res) {
+router.get('/categorie/:id', function(req, res) {
    ArticleDAO.getByCategoryId(req.params.id, function(err, row) {
       if (err) {
          // On affiche les erreurs s'il y'en a

@@ -11,7 +11,7 @@ function AuthContextProvider(props) {
 
    // Rafraichissement du token
    function refreshToken(tokenParam, usernameParam) {
-      if (tokenParam) {
+      if (tokenParam && tokenParam != "Forbidden") {
          const options = {
             url: API.url + 'login/refresh/',
             headers: {
@@ -51,14 +51,14 @@ function AuthContextProvider(props) {
    }, []);
 
    const handleTokenChange = (newToken, newUsername) => {
-      if (newToken) {
+      if (newToken && newToken != "Forbidden") {
          setToken(newToken);
          localStorage.setItem('token', newToken);
       } else {
          setToken(null);
          localStorage.removeItem('token');
       }
-      if (newUsername) {
+      if (newUsername && newToken != "Forbidden") {
          setUsername(newUsername);
          localStorage.setItem('username', newUsername);
       } else {

@@ -1,48 +1,42 @@
 import React from 'react';
-import {AuthContext} from '../../Tools/AuthContextProvider';
-import {useParams} from 'react-router-dom';
 import {CapacitorHttp} from '@capacitor/core';
+import {Container, Grid, Typography} from '@mui/material';
 
 import API from '../../Model/Api';
-import ArticleCard from '../articleCard/ArticleCard'
+import {AuthContext} from '../../Tools/AuthContextProvider';
+import ArticleCard from '../../components/articleCard/ArticleCard';
 
-
-import {
-   Container,
-   Grid,
-   Typography,
-} from '@mui/material';
-
-class ArticlesContent extends React.Component {
+export default class MesArticles extends React.Component {
    state = {
-      articles: [],
+    articles: [],
    };
 
    static contextType = AuthContext;
 
    componentDidMount() {
-      const url = this.props.id ? 'article/categorie/'+this.props.id : `article`;
-      CapacitorHttp.get({url: API.url + url})
-         .then((res) => {
+      const username = localStorage.getItem('username');
+      if (username) {
+         CapacitorHttp.get({url: API.url + 'article/auteur/' + username}).then((res) => {
             const articles = res.data;
             this.setState({articles});
          });
+      }
    }
 
    handleUpdate = (event) => {
-      console.log('update');
       this.componentDidMount();
    };
 
    render() {
       return (
          <>
-            <Container sx={{py: 8}} maxWidth="md">
-               {/* End hero unit */}
+            <br/>
+            <Typography variant='h4' component='h2' sx={{color: 'white'}}>Mes articles</Typography>
+            <Container sx={{py: 2}} maxWidth="md">
                <Grid container spacing={4}>
                   {this.state.articles.map((article) => (
                      <Grid item key={article.titre} xs={12} sm={6} md={4}>
-                        <ArticleCard article={article} onUpdate={this.handleUpdate}/>
+                        <ArticleCard article={article} onUpdate={this.handleUpdate} />
                      </Grid>
                   ))}
                   {!this.state.articles || this.state.articles.length == 0 &&(
@@ -55,10 +49,4 @@ class ArticlesContent extends React.Component {
          </>
       );
    }
-}
-
-
-export default function Articles() {
-   const {id} = useParams();
-   return (<ArticlesContent id={id} />);
 }

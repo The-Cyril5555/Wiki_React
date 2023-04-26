@@ -28,7 +28,7 @@ export default class Categorie extends React.Component {
                <CardMedia
                   component="img"
                   image={this.props.categorie.image || 'https://source.unsplash.com/random'}
-                  sx={{background: 'white'}}
+                  sx={{background: 'white', maxHeight:"400px"}}
                />
             </Link>
             <Divider />
@@ -39,7 +39,7 @@ export default class Categorie extends React.Component {
             </CardContent>
             <CardActions>
                <Link to={'/categorie/'+this.props.categorie.id}>
-                  <Button size="small">View</Button>
+                  <Button size="small">Voir</Button>
                </Link>
             </CardActions>
          </Card>

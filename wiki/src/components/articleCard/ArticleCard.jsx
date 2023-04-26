@@ -40,8 +40,8 @@ export default class Articles extends React.Component {
             <Link to={'/article/'+this.props.article.id}>
                <CardMedia
                   component="img"
-                  image={this.props.article.image || 'https://source.unsplash.com/random'}
-                  sx={{background: 'white'}}
+                  image={ "/" + this.props.article.image || 'https://source.unsplash.com/random'}
+                  sx={{background: 'white', maxHeight:"225px"}}
                   alt="random"
                />
             </Link>
@@ -64,15 +64,17 @@ export default class Articles extends React.Component {
             </CardContent>
             <CardActions>
                <Link to={'/article/'+this.props.article.id}>
-                  <Button size="small">View</Button>
+                  <Button size="small">Voir</Button>
                </Link>
                {this.context.token &&(
                   <Link to={'/article/edit/'+this.props.article.id}>
-                     <Button size="small" color='secondary'>Edit</Button>
+                     <Button size="small" color='secondary'>édition</Button>
                   </Link>
                )}
                {this.context.token &&(
-                  <Button size="small" onClick={this.handleRemove} color='secondary'>remove</Button>
+                  <Link to={'/article/edit/'+this.props.article.id}>
+                     <Button size="small" onClick={this.handleRemove} color='secondary'>Suppression</Button>
+                  </Link>
                )}
             </CardActions>
          </Card>

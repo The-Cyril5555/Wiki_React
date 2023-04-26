@@ -8,8 +8,10 @@ import Accueil from './components/accueil/Accueil';
 import Categorie from './components/categorie/Categorie';
 import Connexion from './components/connexion/Connexion';
 import Article from './components/article/Article';
-import NoPage from './components/noPage/NoPage';
 import Articles from './components/articles/Articles';
+import NoPage from './components/noPage/NoPage';
+import MesArticles from './components/mesArticles/MesArticles';
+import NouvelArticle from './components/nouvelArticle/NouvelArticle';
 
 function App() {
   return (
@@ -22,7 +24,10 @@ function App() {
           <Route path='/connexion' element={<Connexion />}/>
           <Route path='/article/:id' element={<Article />}/>
           <Route path='/articles' element={<Articles />}/>
-          <Route path='/categorie/:id' element={<Articles />} />
+          <Route path='/categorie/:id' element={<Articles />}/>
+          <Route path='/mesArticles' element={<MesArticles />} />
+          <Route path='/nouvelArticle' element={<NouvelArticle />} />
+          {/* <Route path='/categorie/:id' element={<ListeArticles />}/> */}
           <Route path="*" element={<NoPage />} />
         </Routes>
       </header>

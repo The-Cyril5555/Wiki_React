@@ -11,13 +11,15 @@ import Theme from './Model/Theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <React.StrictMode>
   <BrowserRouter>
-    <AuthContextProvider>
-      <ThemeProvider theme={Theme}>
-        <App />
-      </ThemeProvider>
-    </AuthContextProvider>
-  </BrowserRouter>
+      <AuthContextProvider>
+        <ThemeProvider theme={Theme}>
+          <App />
+        </ThemeProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

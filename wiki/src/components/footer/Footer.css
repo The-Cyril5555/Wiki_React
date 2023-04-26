@@ -18,6 +18,10 @@
     margin-top: 2rem;
   }
   
+  ul {
+    list-style-type: none;
+  }  
+
   .footer-section a {
     color: white;
     text-decoration: none;
