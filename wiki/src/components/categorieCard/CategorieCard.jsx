@@ -27,7 +27,7 @@ export default class Categorie extends React.Component {
             <Link to={'/categorie/'+this.props.categorie.id}>
                <CardMedia
                   component="img"
-                  image={this.props.categorie.image || 'https://source.unsplash.com/random'}
+                  image={this.props.categorie.image.startsWith('http') ? this.props.categorie.image : '/' + this.props.categorie.image || 'https://source.unsplash.com/random'}
                   sx={{background: 'white', maxHeight:"400px"}}
                />
             </Link>

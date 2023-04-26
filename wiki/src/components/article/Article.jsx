@@ -41,7 +41,7 @@ class ArticleContenu extends React.Component {
             <Box
                sx={{
                   height: 500,
-                  backgroundImage: `url(${"/" + this.state.article.image || 'https://source.unsplash.com/random'})`,
+                  backgroundImage: `url(${this.state.article.image.startsWith('http') ? this.state.article.image : "/" + this.state.article.image || 'https://source.unsplash.com/random'})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   display: 'flex',

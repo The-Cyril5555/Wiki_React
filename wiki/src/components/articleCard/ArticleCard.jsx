@@ -40,7 +40,7 @@ export default class Articles extends React.Component {
             <Link to={'/article/'+this.props.article.id}>
                <CardMedia
                   component="img"
-                  image={ "/" + this.props.article.image || 'https://source.unsplash.com/random'}
+                  image={ this.props.article.image.startsWith('http') ? this.props.article.image : '/' + this.props.article.image || 'https://source.unsplash.com/random'}
                   sx={{background: 'white', maxHeight:"225px"}}
                   alt="random"
                />
@@ -67,12 +67,12 @@ export default class Articles extends React.Component {
                   <Button size="small">Voir</Button>
                </Link>
                {this.context.token &&(
-                  <Link to={'/article/edit/'+this.props.article.id}>
+                  <Link to={'/article/'+this.props.article.id+'/edit'}>
                      <Button size="small" color='secondary'>édition</Button>
                   </Link>
                )}
                {this.context.token &&(
-                  <Link to={'/article/edit/'+this.props.article.id}>
+                  <Link>
                      <Button size="small" onClick={this.handleRemove} color='secondary'>Suppression</Button>
                   </Link>
                )}

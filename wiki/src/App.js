@@ -27,6 +27,7 @@ function App() {
           <Route path='/categorie/:id' element={<Articles />}/>
           <Route path='/mesArticles' element={<MesArticles />} />
           <Route path='/nouvelArticle' element={<NouvelArticle />} />
+          <Route path='/article/:id/edit' element={<NouvelArticle />} />
           {/* <Route path='/categorie/:id' element={<ListeArticles />}/> */}
           <Route path="*" element={<NoPage />} />
         </Routes>

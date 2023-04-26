@@ -32,13 +32,14 @@ class NouvelArticleContent extends React.Component {
       if (this.props.id) {
          CapacitorHttp.get({url: API.url + 'article/'+ this.props.id}).then((res) => {
             const articles = res.data;
+            console.log(articles.length > 0);
             if (articles.length > 0) {
-               const articles = articles[0];
+               const article = articles[0];
                this.setState({
-                  id: articles.id,
-                  titre: articles.titre,
-                  image: articles.image,
-                  informations: articles.informations,
+                  id: article.id,
+                  titre: article.titre,
+                  image: article.image,
+                  informations: article.informations,
                });
             }
          });
@@ -52,9 +53,12 @@ class NouvelArticleContent extends React.Component {
          });
    }
 
-
    handleTitreChange = (event) => {
       this.setState({titre: event.target.value});
+   };
+
+   handleImageChange = (event) => {
+    this.setState({image: event.target.value});
    };
 
    handleInformationsChange = (event) => {
@@ -132,6 +136,13 @@ class NouvelArticleContent extends React.Component {
                            />
                            <br /><br />
                            <TextField
+                              label="Image"
+                              value={this.state.image}
+                              onChange={this.handleImageChange}
+                              fullWidth
+                           />
+                           <br /><br />
+                           <TextField
                               label="Contenu"
                               value={this.state.informations}
                               onChange={this.handleInformationsChange}
@@ -156,6 +167,5 @@ class NouvelArticleContent extends React.Component {
 
 export default function NouvelArticle() {
    const {id} = useParams();
-
    return (<NouvelArticleContent id={id} />);
 }
