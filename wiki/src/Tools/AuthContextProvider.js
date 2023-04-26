@@ -6,72 +6,72 @@ import API from '../Model/Api';
 const AuthContext = createContext();
 
 function AuthContextProvider(props) {
-   const [token, setToken] = useState();
-   const [username, setUsername] = useState();
+	const [token, setToken] = useState();
+	const [username, setUsername] = useState();
 
-   // Rafraichissement du token
-   function refreshToken(tokenParam, usernameParam) {
-      if (tokenParam && tokenParam != "Forbidden") {
-         const options = {
-            url: API.url + 'login/refresh/',
-            headers: {
-               'Authorization': `Bearer ${tokenParam}`,
-            },
-         };
-         CapacitorHttp.post(options).then((response) => {
-            const newToken = response.data;
-            if (newToken) {
-               handleTokenChange(newToken, usernameParam);
-            } else {
-               handleTokenChange(null, null);
-            }
-         }).catch((error) => {
-            handleTokenChange(null, null);
-         });
-      }
-   }
+	// Rafraichissement du token
+	function refreshToken(tokenParam, usernameParam) {
+		if (tokenParam && tokenParam != "Forbidden") {
+			const options = {
+				url: API.url + 'login/refresh/',
+				headers: {
+					'Authorization': `Bearer ${tokenParam}`,
+				},
+			};
+			CapacitorHttp.post(options).then((response) => {
+				const newToken = response.data;
+				if (newToken) {
+					handleTokenChange(newToken, usernameParam);
+				} else {
+					handleTokenChange(null, null);
+				}
+			}).catch((error) => {
+				handleTokenChange(null, null);
+			});
+		}
+	}
 
-   // Génère l'évènement pour le rafraichissement du token
-   const timeout = setInterval(() => {
-      refreshToken(token, username);
-   }, 60000);
+	// Génère l'évènement pour le rafraichissement du token
+	const timeout = setInterval(() => {
+		refreshToken(token, username);
+	}, 60000);
 
-   useEffect(() => {
-      // récupère le localstorage
-      const storedToken = localStorage.getItem('token');
-      const storedUsername = localStorage.getItem('username');
-      setToken(storedToken);
-      setUsername(storedUsername);
+	useEffect(() => {
+		// récupère le localstorage
+		const storedToken = localStorage.getItem('token');
+		const storedUsername = localStorage.getItem('username');
+		setToken(storedToken);
+		setUsername(storedUsername);
 
-      const timeout = setTimeout(() => {
-         refreshToken(storedToken, storedUsername);
-      }, 1000);
+		const timeout = setTimeout(() => {
+			refreshToken(storedToken, storedUsername);
+		}, 1000);
 
-      return () => clearTimeout(timeout);
-   }, []);
+		return () => clearTimeout(timeout);
+	}, []);
 
-   const handleTokenChange = (newToken, newUsername) => {
-      if (newToken && newToken != "Forbidden") {
-         setToken(newToken);
-         localStorage.setItem('token', newToken);
-      } else {
-         setToken(null);
-         localStorage.removeItem('token');
-      }
-      if (newUsername && newToken != "Forbidden") {
-         setUsername(newUsername);
-         localStorage.setItem('username', newUsername);
-      } else {
-         setUsername(null);
-         localStorage.removeItem('username');
-      }
-   };
+	const handleTokenChange = (newToken, newUsername) => {
+		if (newToken && newToken != "Forbidden") {
+			setToken(newToken);
+			localStorage.setItem('token', newToken);
+		} else {
+			setToken(null);
+			localStorage.removeItem('token');
+		}
+		if (newUsername && newToken != "Forbidden") {
+			setUsername(newUsername);
+			localStorage.setItem('username', newUsername);
+		} else {
+			setUsername(null);
+			localStorage.removeItem('username');
+		}
+	};
 
-   return (
-      <AuthContext.Provider value={{token, handleTokenChange, username}}>
-         {props.children}
-      </AuthContext.Provider>
-   );
+	return (
+		<AuthContext.Provider value={{token, handleTokenChange, username}}>
+			{props.children}
+		</AuthContext.Provider>
+	);
 }
 
 export {AuthContext, AuthContextProvider};
