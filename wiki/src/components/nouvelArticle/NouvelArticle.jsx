@@ -108,7 +108,7 @@ class NouvelArticleContent extends React.Component {
 
 	render() {
 		if (this.state.redirect) {
-			return (<Navigate to="/mypost" />);
+			return (<Navigate to="/mesArticles" />);
 		}
 		return (
 			<>
