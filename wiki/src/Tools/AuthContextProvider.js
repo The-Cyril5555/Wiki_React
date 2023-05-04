@@ -10,29 +10,26 @@ function AuthContextProvider(props) {
 	const [username, setUsername] = useState(); // État pour stocker le nom d'utilisateur
 
 	// Fonction pour rafraîchir le token
-	function refreshToken(tokenParam, usernameParam) {
-		if (tokenParam && tokenParam !== "Forbidden") {
+	function refreshToken() {
+		const storedToken = localStorage.getItem('token');
+		const storedUsername = localStorage.getItem('username');
+		if (storedToken && storedToken !== "Forbidden") {
 			const options = {
 				url: API.url + 'login/refresh/', // URL pour rafraîchir le token
 				headers: {
-					'Authorization': `Bearer ${tokenParam}`, // Ajoute le token dans l'en-tête de la requête
+					'Authorization': `Bearer ${storedToken}`, // Ajoute le token dans l'en-tête de la requête
 				},
 			};
 			CapacitorHttp.post(options)
 				.then((response) => {
 					const newToken = response.data; // Récupère le nouveau token de la réponse
-					handleTokenChange(newToken, usernameParam); // Met à jour le token et le nom d'utilisateur
+					handleTokenChange(newToken, storedUsername); // Met à jour le token et le nom d'utilisateur
 				})
 				.catch(() => {
 					handleTokenChange(null, null); // Gère les erreurs en mettant à jour le token et le nom d'utilisateur à null
 				});
 		}
 	}
-
-	// Génère l'évènement pour le rafraichissement du token
-	const timeout = setInterval(() => {
-		refreshToken(token, username);
-	}, 60000);
 
 	useEffect(() => {
 		// Récupère les valeurs du token et du nom d'utilisateur dans le stockage local
@@ -42,12 +39,20 @@ function AuthContextProvider(props) {
 		setUsername(storedUsername); // Met à jour le nom d'utilisateur avec la valeur stockée
 
 		// Configure un délai pour rafraîchir le token après 1 seconde
-		const timeout = setTimeout(() => {
-			refreshToken(storedToken, storedUsername);
+		const initialTimeout = setTimeout(() => {
+			refreshToken();
 		}, 1000);
-
-		// Nettoie le délai lorsqu'un composant est démonté ou lorsque les dépendances changent
-		return () => clearTimeout(timeout);
+	
+		// Rafraîchit le token toutes les 60 seconds
+		const interval = setInterval(() => {
+			refreshToken();
+		}, 60000);
+	
+		// Nettoie le délai et interval lorsqu'un composant est démonté ou lorsque les dépendances changent
+		return () => {
+			clearTimeout(initialTimeout);
+			clearInterval(interval);
+		};
 	}, []);
 
 	// Fonction pour mettre à jour le token et le nom d'utilisateur
