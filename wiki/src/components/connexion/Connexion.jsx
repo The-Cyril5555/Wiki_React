@@ -104,7 +104,7 @@ export default class Connexion extends React.Component {
 						</Button>
 						{this.state.error && (
 							<Alert severity="error">
-								<AlertTitle>Username or password invalid</AlertTitle>
+								<AlertTitle>Nom d&apos;utilisateur ou mot de passe invalide</AlertTitle>
 							</Alert>
 						)}
 					</Box>
