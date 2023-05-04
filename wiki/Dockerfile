@@ -19,10 +19,6 @@ RUN npm run build
 # Étape 2 : Créer une image à partir de l'image nginx
 FROM nginx:latest
 
-# Copier les fichiers de configuration nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY default.conf /etc/nginx/conf.d/default.conf
-
 # Copier les fichiers d'application buildés à partir de l'étape de construction précédente
 COPY --from=build /app/build /usr/share/nginx/html
 

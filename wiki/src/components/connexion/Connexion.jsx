@@ -39,6 +39,10 @@ export default class Connexion extends React.Component {
 			data: loginPayload,
 		};
 		CapacitorHttp.post(options).then((response) => {
+			if(response.status == 403){
+				this.setState({error: '403'})
+				return;
+			}
 			// get token from response
 			const token = response.data;
 			// set JWT token to local
