@@ -51,7 +51,8 @@ router.put('/:id', function(req, res) {
                res.send(err);
             } else {
                ArticleDAO.getById(req.params.id, function(err, article) {
-                  if (user.username == 'admin' || (article.lenght > 0 && article[0].auteur_id == user.username)) {
+                  console.log("update article");
+                  if (user.username == 'admin' || (article.length > 0 && article[0].auteur_id == userObj[0].id)) {
                      req.body.auteur_id = userObj[0].id;
                      ArticleDAO.update(req.params.id, req.body, (err2, article) => {
                         ArticleDAO.setCategorie(req.params.id, req.body.categories, (err3, data) => { });
@@ -114,7 +115,7 @@ router.delete('/:id', function(req, res) {
          res.sendStatus(err.status || 500);
       } else {
          ArticleDAO.getById(req.params.id, function(err, article) {
-            if (user.username == 'admin' || (article.lenght > 0 && article[0].auteur_id == user.username)) {
+            if (user.username == 'admin' || (article.length > 0 && article[0].auteur_id == user.username)) {
                ArticleDAO.delete(req.params.id, function(err, row) {
                   if (err) {
                      // On affiche les erreurs s'il y'en a
