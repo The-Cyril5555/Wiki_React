@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 // Définition de la classe JwtToken avec deux méthodes : generate() et verify()
 class JwtToken {
    // Méthode pour générer un token JWT en utilisant le nom d'utilisateur passé en argument
-   generate = (username) => {
+   generate = (user) => {
       try {
-         return jwt.sign(username, process.env.API_SECRET, {expiresIn: '180s'});
+         return jwt.sign(user, process.env.API_SECRET, {expiresIn: '180s'});
       } catch (error) {
          return null;
       }
@@ -26,6 +26,8 @@ class JwtToken {
          } catch (error) {
             callback('Invalid token', null);
          }
+      } else {
+         callback('Invalid token', null);
       }
    };
 }

@@ -22,11 +22,15 @@ class ArticlesContent extends React.Component {
 
 	componentDidMount() {
 		const url = this.props.id ? 'article/categorie/'+this.props.id : `article`;
-		CapacitorHttp.get({url: API.url + url})
-			.then((res) => {
-				const articles = res.data;
-				this.setState({articles});
-			});
+		CapacitorHttp.get({
+			url: API.url + url,
+			headers: {
+				'Authorization': `Bearer ${this.context.token}`
+			}
+		}).then((res) => {
+			const articles = res.data;
+			this.setState({articles});
+		});
 	}
 
 	handleUpdate = (event) => {
@@ -35,12 +39,13 @@ class ArticlesContent extends React.Component {
 	};
 
 	render() {
+		console.log(this.state.articles);
 		return (
 			<>
 				<Container sx={{py: 8}} maxWidth="md">
 					{/* End hero unit */}
 					<Grid container spacing={4}>
-						{this.state.articles.map((article) => (
+						{this.state.articles.length > 0 && this.state.articles.map((article) => (
 							<Grid item key={article.titre} xs={12} sm={6} md={4}>
 								<ArticleCard article={article} onUpdate={this.handleUpdate}/>
 							</Grid>

@@ -16,7 +16,12 @@ export default class MesArticles extends React.Component {
 	componentDidMount() {
 		const username = localStorage.getItem('username');
 		if (username) {
-			CapacitorHttp.get({url: API.url + 'article/auteur/' + username}).then((res) => {
+			CapacitorHttp.get({
+				url: API.url + 'article/auteur/' + username,
+				headers: {
+					'Authorization': `Bearer ${this.context.token}`
+				}
+			}).then((res) => {
 				const articles = res.data;
 				this.setState({articles});
 			});

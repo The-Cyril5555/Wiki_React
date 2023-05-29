@@ -66,12 +66,12 @@ export default class Articles extends React.Component {
 					<Link to={'/article/'+this.props.article.id}>
 						<Button size="small">Voir</Button>
 					</Link>
-					{this.context.token &&(
+					{this.props.article.editable &&(
 						<Link to={'/article/'+this.props.article.id+'/edit'}>
 							<Button size="small" color='secondary'>édition</Button>
 						</Link>
 					)}
-					{this.context.token &&(
+					{this.props.article.editable &&(
 						<Link>
 							<Button size="small" onClick={this.handleRemove} color='secondary'>Suppression</Button>
 						</Link>

@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('../model/JwtToken');
+const Article = require('../model/Article');
 
 /**
  * Importation des DAO
@@ -51,19 +52,23 @@ router.put('/:id', function(req, res) {
                res.send(err);
             } else {
                ArticleDAO.getById(req.params.id, function(err, article) {
-                  console.log("update article");
-                  if (user.username == 'admin' || (article.length > 0 && article[0].auteur_id == userObj[0].id)) {
-                     req.body.auteur_id = userObj[0].id;
-                     ArticleDAO.update(req.params.id, req.body, (err2, article) => {
-                        ArticleDAO.setCategorie(req.params.id, req.body.categories, (err3, data) => { });
-                        if (err2) {
-                           res.sendStatus(err.status || 500);
-                        } else {
-                           res.send(article);
-                        }
-                     });
+                  if (article.lenght > 0) {
+                     const articleObj = Article.fromObject(article[0]);
+                     if (articleObj.canEdit(user)) {
+                        req.body.auteur_id = userObj[0].id;
+                        ArticleDAO.update(req.params.id, req.body, (err2, article) => {
+                           ArticleDAO.setCategorie(req.params.id, req.body.categories, (err3, data) => { });
+                           if (err2) {
+                              res.sendStatus(err.status || 500);
+                           } else {
+                              res.send(article);
+                           }
+                        });
+                     } else {
+                        res.sendStatus(500);
+                     }
                   } else {
-                     res.sendStatus(200);
+                     res.sendStatus(500);
                   }
                });
             }
@@ -76,36 +81,60 @@ router.put('/:id', function(req, res) {
  * Lors d'une requête GET sur l'endpoint
  */
 router.get('/auteur/:id', function(req, res) {
-   ArticleDAO.getByAuteur(req.params.id, function(err, row) {
-      if (err) {
-         // On affiche les erreurs s'il y'en a
-         res.sendStatus(err.status || 500);
-      } else {
-         res.json(row);
-      }
+   jwt.verify(req, function(err, user) {
+      ArticleDAO.getByAuteur(req.params.id, function(err, rows) {
+         if (err) {
+            // On affiche les erreurs s'il y'en a
+            res.sendStatus(err.status || 500);
+         } else {
+            const retRows = rows.map(function(row) {
+               row = Article.fromObject(row);
+               row.editable = row.canEdit(user);
+               return row;
+            });
+
+            res.json(retRows);
+         }
+      });
    });
 });
 
 
 router.get('/categorie/:id', function(req, res) {
-   ArticleDAO.getByCategoryId(req.params.id, function(err, row) {
-      if (err) {
-         // On affiche les erreurs s'il y'en a
-         res.sendStatus(err.status || 500);
-      } else {
-         res.json(row);
-      }
+   jwt.verify(req, function(err, user) {
+      ArticleDAO.getByCategoryId(req.params.id, function(err, rows) {
+         if (err) {
+            // On affiche les erreurs s'il y'en a
+            res.sendStatus(err.status || 500);
+         } else {
+            const retRows = rows.map(function(row) {
+               row = Article.fromObject(row);
+               row.editable = row.canEdit(user);
+               return row;
+            });
+
+            res.json(retRows);
+         }
+      });
    });
 });
 
 router.get('/:id', function(req, res) {
-   ArticleDAO.getById(req.params.id, function(err, row) {
-      if (err) {
-         // On affiche les erreurs s'il y'en a
-         res.sendStatus(err.status || 500);
-      } else {
-         res.json(row);
-      }
+   jwt.verify(req, function(err, user) {
+      ArticleDAO.getById(req.params.id, function(err, rows) {
+         if (err) {
+            // On affiche les erreurs s'il y'en a
+            res.sendStatus(err.status || 500);
+         } else {
+            const retRows = rows.map(function(row) {
+               row = Article.fromObject(row);
+               row.editable = row.canEdit(user);
+               return row;
+            });
+
+            res.json(retRows);
+         }
+      });
    });
 });
 
@@ -115,15 +144,20 @@ router.delete('/:id', function(req, res) {
          res.sendStatus(err.status || 500);
       } else {
          ArticleDAO.getById(req.params.id, function(err, article) {
-            if (user.username == 'admin' || (article.length > 0 && article[0].auteur_id == user.username)) {
-               ArticleDAO.delete(req.params.id, function(err, row) {
-                  if (err) {
-                     // On affiche les erreurs s'il y'en a
-                     res.sendStatus(err.status || 500);
-                  } else {
-                     res.json(row);
-                  }
-               });
+            if (article.lenght > 0) {
+               const articleObj = Article.fromObject(article[0]);
+               if (articleObj.canEdit(user)) {
+                  ArticleDAO.delete(req.params.id, function(err, row) {
+                     if (err) {
+                        // On affiche les erreurs s'il y'en a
+                        res.sendStatus(err.status || 500);
+                     } else {
+                        res.json(row);
+                     }
+                  });
+               } else {
+                  res.sendStatus(500);
+               }
             } else {
                res.sendStatus(500);
             }
@@ -133,13 +167,21 @@ router.delete('/:id', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-   ArticleDAO.getAll(function(err, row) {
-      if (err) {
-         // On affiche les erreurs s'il y'en a
-         res.sendStatus(err.status || 500);
-      } else {
-         res.json(row);
-      }
+   jwt.verify(req, function(err, user) {
+      ArticleDAO.getAll(function(err, rows) {
+         if (err) {
+            // On affiche les erreurs s'il y'en a
+            res.sendStatus(err.status || 500);
+         } else {
+            const retRows = rows.map(function(row) {
+               row = Article.fromObject(row);
+               row.editable = row.canEdit(user);
+               return row;
+            });
+
+            res.json(retRows);
+         }
+      });
    });
 });
 

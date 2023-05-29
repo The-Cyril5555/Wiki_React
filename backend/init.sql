@@ -105,7 +105,8 @@ INSERT INTO `categorie` (`id`, `nom`, `image`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci UNIQUE NOT NULL,
+  `role` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

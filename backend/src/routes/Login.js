@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
             return res.sendStatus(403);
          } else {
             // Génération d'un token JWT et renvoi au client
-            const token = jwt.generate({username: req.body.username});
+            const token = jwt.generate({username: user[0].username, id: user[0].id});
             return res.json(token);
          }
       });
@@ -37,7 +37,7 @@ router.post('/register', (req, res) => {
    };
    const saltRounds = 10;
    jwt.verify(req, function(err, user) {
-      if (user.username == 'admin') {
+      if (user.role === 'admin') {
          // Hashage du mot de passe avant enregistrement en base de données
          bcrypt.hash(user.password, saltRounds, function(err, hash) {
             if (err) {
@@ -63,7 +63,7 @@ router.post('/refresh', function(req, res) {
       if (err) {
          return res.sendStatus(403);
       } else {
-         const token = jwt.generate({username: user.username});
+         const token = jwt.generate({username: user.username, id: user.id});
          return res.json(token);
       }
    });
