@@ -12,7 +12,7 @@ router.post('/', (req, res) => {
    // Récupération de l'utilisateur par son nom d'utilisateur
    UtilisateurDAO.getByUsername(req.body.username, (err, user) =>{
       // Si l'utilisateur n'existe pas, renvoie une erreur 403
-      if (user.length == 0) {
+      if (user == null || user.length == 0) {
          return res.sendStatus(403);
       }
       // Comparaison du mot de passe fourni avec celui enregistré en base de données

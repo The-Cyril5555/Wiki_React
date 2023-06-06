@@ -114,7 +114,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `password`, `username`) VALUES
-(1, '$2b$10$D2Viz5FZ.mylvwhvXIwufeNpDoR0R5iGM3nJaYxDF1/Fq2GfdF3fK', 'Cyril Bizouarn');
+(1, '$2b$10$D2Viz5FZ.mylvwhvXIwufeNpDoR0R5iGM3nJaYxDF1/Fq2GfdF3fK', 'Cyril Bizouarn'),
+(2, '$2b$10$D2Viz5FZ.mylvwhvXIwufeNpDoR0R5iGM3nJaYxDF1/Fq2GfdF3fK', 'User');
 
 --
 -- Index pour les tables déchargées
