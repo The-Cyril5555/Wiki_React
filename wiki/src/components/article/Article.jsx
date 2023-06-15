@@ -51,6 +51,7 @@ class ArticleContenu extends React.Component {
 					sx={{
 						height: '100%',
 						width: '100%',
+						maxWidth: '100%',
 						backgroundImage: `url(${this.state.article.image.startsWith('http') ? this.state.article.image : "/" + this.state.article.image || 'https://source.unsplash.com/random'})`,
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
