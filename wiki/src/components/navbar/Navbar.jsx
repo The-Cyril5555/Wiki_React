@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import {AuthContext} from '../../Tools/AuthContextProvider';
+import { AuthContext } from '../../Tools/AuthContextProvider';
 import "./Navbar.css";
 
 function Navbar() {
-	const {token, handleTokenChange, username} = useContext(AuthContext);
+	const { token, handleTokenChange, username } = useContext(AuthContext);
 
 	const [click, setClick] = useState(false);
 
@@ -17,7 +17,7 @@ function Navbar() {
 			<nav className="navbar">
 				<div className="nav-container">
 					<Link exact to="/" className="nav-logo">
-            WIKI 
+						WIKI
 					</Link>
 
 					<ul className={click ? "nav-menu active" : "nav-menu"}>
@@ -29,7 +29,7 @@ function Navbar() {
 								className="nav-links"
 								onClick={handleClick}
 							>
-                Accueil
+								Accueil
 							</Link>
 						</li>
 						<li className="nav-item">
@@ -40,7 +40,7 @@ function Navbar() {
 								className="nav-links"
 								onClick={handleClick}
 							>
-                Catégorie
+								Catégorie
 							</Link>
 						</li>
 						<li className="nav-item">
@@ -51,7 +51,7 @@ function Navbar() {
 									className="nav-links"
 									onClick={handleClick}
 								>
-                  Mes articles
+									Mes articles
 								</Link>
 							)}
 						</li>
@@ -63,7 +63,7 @@ function Navbar() {
 									className="nav-links"
 									onClick={handleClick}
 								>
-                  Créer article
+									Créer article
 								</Link>
 							)}
 						</li>
@@ -76,7 +76,7 @@ function Navbar() {
 									className="nav-links"
 									onClick={handleClick}
 								>
-                  Connexion
+									Connexion
 								</Link>
 							)}
 							{token && (
@@ -86,12 +86,12 @@ function Navbar() {
 									className="nav-links"
 									onClick={handleLogout}
 								>
-                  Déconnexion
+									Déconnexion
 								</Link>
 							)}
 						</li>
-            
-      
+
+
 					</ul>
 					<div className="nav-icon" onClick={handleClick}>
 						<i className={click ? "fas fa-times" : "fas fa-bars"}></i>

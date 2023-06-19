@@ -10,7 +10,15 @@ class UtilisateurDAO {
    }
 
    getByUsername(key, callback) {
-      db.query('SELECT * FROM user WHERE username = ?', [key], callback);
+      // Lance la requête à la base de données
+      db.query(
+         // Instruction SQL
+         'SELECT * FROM user WHERE username = ?',
+         // Le '?' est remplacé par 'key'
+         [key],
+         // Fonction de rappel exécutée après la requête
+         callback
+      );
    }
 
    add(user, callback) {

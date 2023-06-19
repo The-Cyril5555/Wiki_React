@@ -53,16 +53,19 @@
   line-height: 40px;
   margin-right: 1rem;
 }
-
+/* Crée pseudo-élément */
 .nav-item:after {
   content: "";
+  /* Met en bloc */
   display: block;
   height: 3px;
+  /* Largeur initiale zéro */
   width: 0;
   background: transparent;
+  /* Animation lors du changement */
   transition: width 0.7s ease, background-color 0.5s ease;
 }
-
+/* Apparition barre jaune */
 .nav-item:hover:after {
   width: 100%;
   background: #ffdd40;
@@ -70,20 +73,23 @@
 
 .nav-item .active {
   color: #ffdd40;
+  /* Bordure du texte activé */
   border: 1px solid #ffdd40;
 }
 
 .nav-icon {
   display: none;
 }
-
+/* Styles pour écrans <=800px */
 @media screen and (max-width: 800px) {
+  /* Centrer le logo */
   .nav-logo {
     margin-left: auto;
     margin-right: auto;
     display: flex;
     justify-content: center;
   }
+  /* Menu hors écran */
   .nav-menu {
     display: flex;
     flex-direction: column;
@@ -95,7 +101,7 @@
     opacity: 1;
     transition: all 0.5s ease;
   }
-
+  /* Menu visible*/
   .nav-menu.active {
     background: rgb(109, 109, 245);
     left: 0px;
@@ -103,16 +109,18 @@
     transition: all 0.5s ease;
     z-index: 1;
   }
+  /* Texte blanc*/
   .nav-item .active {
     color: #fff;
     border: none;
   }
+  /* Liens */
   .nav-links {
     padding: 1.5rem;
     width: 100%;
     display: table;
   }
-
+  /* Icône en haut à droite */
   .nav-icon {
     display: block;
     position: absolute;
