@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
             return res.sendStatus(403);
          } else {
             // Génération d'un token JWT et renvoi au client
-            const token = jwt.generate({username: user[0].username, id: user[0].id});
+            const token = jwt.generate({username: user[0].username, id: user[0].id, role: user[0].role});
             return res.json(token);
          }
       });
@@ -63,7 +63,7 @@ router.post('/refresh', function(req, res) {
       if (err) {
          return res.sendStatus(403);
       } else {
-         const token = jwt.generate({username: user.username, id: user.id});
+         const token = jwt.generate({username: user.username, id: user.id, role: user.role});
          return res.json(token);
       }
    });
