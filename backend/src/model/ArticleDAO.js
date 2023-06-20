@@ -26,11 +26,15 @@ class ArticleDAO {
       db.query('SELECT article.id as id, user.username as auteur, article.auteur_id, article.titre, article.image, article.informations FROM article INNER JOIN user ON user.id = article.auteur_id WHERE user.username = ?', [key], callback);
    };
 
-   // Méthode pour ajouter un nouvel article
+   // Définition de la méthode 'add'
    add(article, callback) {
+      // Exécute une requête SQL
       db.query(
+         // Requête d'insertion SQL
          'INSERT INTO article (auteur_id, titre, image, informations) VALUES (?, ?, ?, ?)',
+         // Remplace les '?' par ces valeurs
          [article.auteur_id, article.titre, article.image, article.informations],
+         // Appelle 'callback' après l'insertion
          callback,
       );
    };
