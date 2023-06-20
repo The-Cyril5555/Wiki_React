@@ -113,7 +113,7 @@ CREATE TABLE `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `password`, `username`, 'role') VALUES
+INSERT INTO `user` (`id`, `password`, `username`, `role`) VALUES
 (1, '$2b$10$D2Viz5FZ.mylvwhvXIwufeNpDoR0R5iGM3nJaYxDF1/Fq2GfdF3fK', 'Cyril Bizouarn', 'admin'),
 (2, '$2b$10$D2Viz5FZ.mylvwhvXIwufeNpDoR0R5iGM3nJaYxDF1/Fq2GfdF3fK', 'User', 'user');
 
