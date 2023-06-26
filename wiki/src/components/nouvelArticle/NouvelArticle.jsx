@@ -153,7 +153,7 @@ class NouvelArticleContent extends React.Component {
 									<br />
 									<br />
 									<Button type="submit" variant="contained">
-										{this.state.id ? 'Modier' : 'Créer'}
+										{this.state.id ? 'Modifier' : 'Créer'}
 									</Button>
 								</Grid>
 							</form>
