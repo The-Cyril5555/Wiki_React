@@ -52,7 +52,7 @@ router.put('/:id', function(req, res) {
                res.send(err);
             } else {
                ArticleDAO.getById(req.params.id, function(err, article) {
-                  if (article.lenght > 0) {
+                  if (article.length > 0) {
                      const articleObj = Article.fromObject(article[0]);
                      if (articleObj.canEdit(user)) {
                         req.body.auteur_id = userObj[0].id;
@@ -144,7 +144,7 @@ router.delete('/:id', function(req, res) {
          res.sendStatus(err.status || 500);
       } else {
          ArticleDAO.getById(req.params.id, function(err, article) {
-            if (article.lenght > 0) {
+            if (article.length > 0) {
                const articleObj = Article.fromObject(article[0]);
                if (articleObj.canEdit(user)) {
                   ArticleDAO.delete(req.params.id, function(err, row) {
