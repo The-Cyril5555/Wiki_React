@@ -17,12 +17,12 @@ router.post('/', (req, res) => {
       }
       // Comparaison du mot de passe fourni avec celui enregistré en base de données
       bcrypt.compare(req.body.password, user[0].password, function(err, result) {
-         if (err) {
-            return res.sendStatus(403);
-         } else {
+         if(result) {
             // Génération d'un token JWT et renvoi au client
             const token = jwt.generate({username: user[0].username, id: user[0].id, role: user[0].role});
             return res.json(token);
+         } else {
+            return res.sendStatus(403);
          }
       });
    });
